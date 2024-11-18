@@ -80,10 +80,11 @@ public class Game1 : Game
 
         if(höpadel.Intersects(boll) || väpadel.Intersects(boll)){
             bollxvo *= -2;
+            bollyvo *= 2;
         }
 
         if(boll.Y <= 0 || boll.Y >= 460){
-            bollyvo *= -2;
+            bollyvo *= -1;
         }
 
         if(boll.X <= 0 || boll.X >= 780){

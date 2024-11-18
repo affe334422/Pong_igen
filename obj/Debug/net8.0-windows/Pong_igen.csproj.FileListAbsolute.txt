@@ -24,3 +24,4 @@ C:\Users\alle07002\OneDrive - Växjö kommun\Skrivbordet\program\Pong_igen\obj\D
 C:\Users\alle07002\OneDrive - Växjö kommun\Skrivbordet\program\Pong_igen\obj\Debug\net8.0-windows\Pong_igen.pdb
 C:\Users\alle07002\OneDrive - Växjö kommun\Skrivbordet\program\Pong_igen\obj\Debug\net8.0-windows\Pong_igen.genruntimeconfig.cache
 C:\Users\alle07002\OneDrive - Växjö kommun\Skrivbordet\program\Pong_igen\obj\Debug\net8.0-windows\ref\Pong_igen.dll
+C:\Users\alle07002\OneDrive - Växjö kommun\Skrivbordet\program\Pong_igen\obj\Debug\net8.0-windows\Pong_igen.sourcelink.json
