@@ -19,17 +19,20 @@ public class Game1 : Game
 
     // skärmen är x: bredd = 800, y: höjd = 480
 
-    Rectangle väpadel = new Rectangle(10,200,20,470);
+    Rectangle väpadel = new Rectangle(10,200,20,400);
                                     // x: y: width hight
     
-    Rectangle höpadel = new Rectangle(770,200,20,470);
+    Rectangle höpadel = new Rectangle(770,200,20,400);
 
     List<Rectangle> boll = new List<Rectangle>();
     List<Point> bollhastighet = new List<Point>();
     int bollxvo = 5;
     int bollyvo = 5;
+    int xbollgräns = 780;
+    int ybollgräns = 480;
 
     int countdown = 1;
+    int countdown1 = 1;
     
     int stop = 2;
 
@@ -65,6 +68,8 @@ public class Game1 : Game
         
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)){
             Exit();
+        }if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.O)){
+            ResetElapsedTime();
         }
 
         KeyboardState kstate  = Keyboard.GetState();
@@ -94,19 +99,34 @@ public class Game1 : Game
 
 
 
-        if(countdown != 10 && stop == 1){
+        if(countdown != 145 && stop == 1){
             countdown++;
         }
-        else if(countdown == 10 && stop == 1){
+        if(countdown == 145 && stop == 1 || kstate.IsKeyDown(Keys.R)){
 
-            for(int i = 0; i < 4; i++){
-                boll.Add(new Rectangle(390,230,20,20));
-                bollhastighet.Add(new Point(bollxvo *= -1,bollyvo)); 
-                bollhastighet.Add(new Point(bollxvo,bollyvo*=-1));
+            for(int i = 1; i < 5; i++){
+                boll.Add(new Rectangle(390,224 + i*3,20,20));
+                bollhastighet.Add(new Point(bollxvo *= -1,bollyvo += i)); 
+                bollhastighet.Add(new Point(bollxvo += i,bollyvo*=-1));
             }
-            
+            bollxvo = 5;
+            bollyvo = 5;
             countdown = 1;
         }
+
+        if (Keyboard.GetState().IsKeyDown(Keys.F))
+        {
+            _graphics.PreferredBackBufferWidth++;
+            _graphics.PreferredBackBufferHeight++;
+            höpadel.X++;
+            ybollgräns++;
+            xbollgräns++;
+            _graphics.ApplyChanges();
+        }
+
+        
+        
+        
         
         
 
@@ -115,22 +135,19 @@ public class Game1 : Game
         
             if(höpadel.Intersects(boll[i]) || väpadel.Intersects(boll[i])){
                 bollhastighet[i] = new Point(-bollhastighet[i].X ,bollhastighet[i].Y);
-                int nyXHastighet = Math.Sign(bollhastighet[i].X) * (Math.Abs(bollhastighet[i].X) + 1); // Behåll riktningen
-                int nyYHastighet = Math.Sign(bollhastighet[i].Y) * (Math.Abs(bollhastighet[i].Y) + 1); // Behåll riktningen
-
-                // Tilldela den nya hastigheten
-                bollhastighet[i] = new Point(nyXHastighet, nyYHastighet);
+                
+                //boll[i]= new Rectangle(30,boll[i].Y,20,20);
                 
             }
 
-            if(boll[i].Y <= 0 || boll[i].Y >= 460){
+            if(boll[i].Y <= 0 || boll[i].Y >= ybollgräns){
                 bollhastighet[i] = new Point(bollhastighet[i].X, -bollhastighet[i].Y);
 
             }
 
-            if(boll[i].X <= 0 || boll[i].X >= 780){
+            if(boll[i].X <= 0 || boll[i].X >= xbollgräns){
                 boll[i] = new Rectangle(390,230,20,20);
-                bollhastighet[i] = new Point(bollxvo,bollyvo);
+                //bollhastighet[i] = new Point(bollxvo *= -1,bollyvo *= -1);
             }
         
         }
